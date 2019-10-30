@@ -12,7 +12,11 @@
       {{ session()->get('success') }}  
     </div><br />
   @endif
-  <div class="row"><a href="{{ route('usuarios.create')}}" class="btn btn-primary">Crear</a></div>
+  <div class="row"><a href="{{ route('usuarios.create')}}" class="btn btn-primary">Crear</a>
+  <a href="{{ route('noticias.index')}}" class="btn btn-success">Ir a novedades</a>
+  <a href="{{ route('areas.index')}}" class="btn btn-success">Ir a áreas</a>
+  <a href="{{ route('tags.index')}}" class="btn btn-success">Ir a tags</a>
+  </div>
   <table class="table table-striped">
     <thead>
         <tr>

@@ -25,22 +25,35 @@
         @csrf
         <div class="form-group">
           <label for="name">Título:</label>
-          <input type="text" class="form-control" name="titulo_nov" value={{ $noticia->titulo_nov }} />
+          <input type="text" class="form-control" name="titulo_nov" value="{{ $noticia->titulo_nov }}" />
         </div>
 
-        <div class="form-group">
+          <div class="form-group">
               {!! Form::Label('id_tag', 'Tag:') !!}
               {!! Form::select('id_tag', $tags, $selectedTags, ['class' => 'form-control']) !!}
+          </div>
+
+          <div class="form-group">
+              {!! Form::Label('id_prioridad', 'prioridad:') !!}
+              {!! Form::select('id_prioridad', $prioridades, $selectedPri, ['class' => 'form-control']) !!}
+          </div>
+          <div class="form-group">
+              {!! Form::Label('id_subarea', 'subarea:') !!}
+              {!! Form::select('id_subarea', $subareas, $selectedSub, ['class' => 'form-control']) !!}
           </div>
           
         <div class="form-group">
           <label for="price">Descripción :</label>
-          <input type="text" class="form-control" name="descripcion_nov" value={{ $noticia->descripcion_nov }} />
+          <input type="text" class="form-control" name="descripcion_nov" value="{{ $noticia->descripcion_nov }}" />
         </div>
         <div class="form-group">
           <label for="quantity">Imagen:</label>
           <input type="text" class="form-control" name="img_nov" value={{ $noticia->img_nov }} />
         </div>
+        <div class="form-group">
+        <img src="{{$noticia->img_nov}}" alt="Smiley face" width="400">
+        </div>
+
         <button type="submit" class="btn btn-primary">Modificar</button>
       </form>
   </div>
