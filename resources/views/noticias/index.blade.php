@@ -12,7 +12,11 @@
       {{ session()->get('success') }}  
     </div><br />
   @endif
-  <div class="row"><a href="{{ route('noticias.create')}}" class="btn btn-primary">Crear</a></div>
+  <div class="row"><a href="{{ route('noticias.create')}}" class="btn btn-primary">Crear</a>
+  <a href="{{ route('tags.index')}}" class="btn btn-success">Ir a tags</a>
+  <a href="{{ route('areas.index')}}" class="btn btn-success">Ir a áreas</a>
+  <a href="{{ route('usuarios.index')}}" class="btn btn-success">Ir a usuarios</a>
+  </div>
 
   <table class="table table-striped">
     <thead>
@@ -31,7 +35,7 @@
             <td>{{$noticia->titulo_nov}}</td>
             <td>{{$noticia->descripcion_nov}}</td>
             <td>
-            <img src="{{$noticia->img_nov}}" alt="Smiley face" height="42" width="50">
+            <img src="{{$noticia->img_nov}}" alt="Smiley face" width="50">
             </td>
             <td><a href="{{ route('noticias.edit',$noticia->id_nov)}}" class="btn btn-primary">Editar</a></td>
             <td>

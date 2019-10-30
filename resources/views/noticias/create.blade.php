@@ -16,9 +16,9 @@
         <ul>
             @foreach ($errors->all() as $error)
               <li>{{ $error }}</li>
-            @endforeach
+            @endforeach 
         </ul>
-      </div><br />
+      </div>
     @endif
       <form method="post" action="{{ route('noticias.store') }}">
           <div class="form-group">
@@ -30,6 +30,15 @@
           <div class="form-group">
               {!! Form::Label('id_tag', 'Tag:') !!}
               {!! Form::select('id_tag', $tags, NULL, ['class' => 'form-control']) !!}
+          </div>
+
+          <div class="form-group">
+              {!! Form::Label('id_prioridad', 'prioridad:') !!}
+              {!! Form::select('id_prioridad', $prioridades, NULL, ['class' => 'form-control']) !!}
+          </div>
+          <div class="form-group">
+              {!! Form::Label('id_subarea', 'subarea:') !!}
+              {!! Form::select('id_subarea', $subareas, NULL, ['class' => 'form-control']) !!}
           </div>
 
           <div class="form-group">
