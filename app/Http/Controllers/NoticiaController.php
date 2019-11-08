@@ -38,7 +38,6 @@ class NoticiaController extends Controller
       return view('noticias.create', compact('subareas','tags', 'prioridades'));
 
     }
-
     /**
      * Store a newly created resource in storage.
      *

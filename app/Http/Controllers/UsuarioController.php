@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Usuario;
-use DB; 
+use App\Subarea;
+use DB;
 
 class UsuarioController extends Controller
 {
@@ -16,7 +17,10 @@ class UsuarioController extends Controller
      */
     public function index()
     {
-        //$usuarios = Usuario::all();
+        $usuarios = Usuario::all();
+
+        return view('usuarios.index', compact('usuarios'));
+
         $usuarios = DB::table('tbl_usuario')
         ->select('tbl_usuario.id_user','tbl_usuario.nom_user','tbl_usuario.leg_user',
         DB::raw('(case 
@@ -28,10 +32,8 @@ class UsuarioController extends Controller
         ->leftJoin ('tbl_user_rol','tbl_user_rol.id_user','=','tbl_usuario.id_user')
         
         //->groupBy('tbl_area.id_area')
-        ->orderBy('tbl_usuario.id_user')
-        ->get();
-
-        return view('usuarios.index', compact('usuarios'));
+        ->orderBy('tbl_usuario.id_user');
+        get();  
     }
 
     /**
@@ -41,7 +43,9 @@ class UsuarioController extends Controller
      */
     public function create()
     {
-        return view('usuarios.create');
+      $subareas = Subarea::pluck('nom_subarea', 'id_subarea');
+
+        return view ('usuarios.create', compact('subareas'));
     }
 
     /**
@@ -52,14 +56,24 @@ class UsuarioController extends Controller
      */
     public function store(Request $request)
     {
+      $fecha = date("Y/m/d");
+
       $request->validate([
         'usuario' => 'required',
-        'legajo' => 'required'
+        'legajo' => 'required',
+        
       ]);
       $usuarios = new Usuario([
         'nom_user'=> $request->get('usuario'),
         'leg_user'=> $request->get('legajo'),
-        'id_subarea'=> 1
+        'id_subarea'=> $request->get('id_subarea'),
+        'pass_user'=> $request->get('contraseña'),
+        'mail_user'=> $request->get('mail'),
+        'fecha_creacion_user'=> $fecha,
+        'fecha_edicion_user'=> $fecha,
+        'fecha_login_user'=> $fecha,
+        'estado_user'=> $request->get('estado'),
+        'img_user'=> $request->get('imagen')
       ]);
       $usuarios->save();
       return redirect('/usuarios')->with('success', 'Se ha guardado un nuevo usuario');
@@ -84,9 +98,15 @@ class UsuarioController extends Controller
      */
     public function edit($id)
     {
-        $usuario = Usuario::find($id);
+      $usuario = Usuario::find($id);
 
-        return view('usuarios.edit', compact('usuario'));
+      $subareas = Subarea::pluck('nom_subarea', 'id_subarea');
+      $selectedSub = Usuario::find($id)->id_subarea;
+
+      if (!isset($selectedSub)){
+        $selectedSub = 1; // Si no existe la relacion le coloco el primero
+      }
+      return view('usuarios.edit', compact('usuario', 'legajo', 'subareas','selectedSub', 'mail', 'estado', 'imagen'));
     }
 
     /**
@@ -98,17 +118,29 @@ class UsuarioController extends Controller
      */
     public function update(Request $request, $id)
     {
+      $fecha = date("Y/m/d");
+
       $request->validate([
-        'usuario' => 'required',
-        'legajo' => 'required'
+        'nom_user' => 'required',
+        'leg_user' => 'required',
+        
       ]);
 
       $usuarios = Usuario::find($id);
-      $usuarios->nom_user = $request->get('usuario');
-      $usuarios->leg_user = $request->get('legajo');
+      $usuarios->nom_user = $request-> get('nom_user');
+      $usuarios->leg_user = $request-> get('leg_user');
+      $usuarios->id_subarea = $request->get('id_subarea');
+      $usuarios->pass_user = $request-> get('pass_user');
+      $usuarios->mail_user = $request-> get('mail_user');
+      $usuarios->fecha_creacion_user = $fecha;
+      $usuarios->fecha_edicion_user = $fecha;
+      $usuarios->fecha_login_user = $fecha;
+      $usuarios->estado_user = $request->get('estado_user');
+      $usuarios->img_user = $request-> get('img_user');
       $usuarios->save();
 
-      return redirect('/usuarios')->with('success', 'El usuario ha sido modificado correctamente');
+      return redirect('/usuarios')->with('success', 'El usuario ha sido modificado');
+      
     }
 
     /**

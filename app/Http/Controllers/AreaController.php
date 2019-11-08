@@ -16,7 +16,9 @@ class AreaController extends Controller
      */
     public function index()
     {
-        
+      $areas = Area::all();
+      return view('areas.index', compact('areas'));
+
         $areas = DB::table('tbl_area')
         ->select('tbl_area.id_area','tbl_area.nom_area','tbl_area.descripcion_area',
         DB::raw('(case 
@@ -27,9 +29,7 @@ class AreaController extends Controller
         ->leftJoin('tbl_jefe','tbl_jefe.id_area','=','tbl_area.id_area')
         //->groupBy('tbl_area.id_area')
         ->orderBy('tbl_area.id_area', 'desc')
-        ->get();
-    
-        return view('areas.index', compact('areas'));
+        ->get();   
     }
 
     /**
@@ -39,9 +39,9 @@ class AreaController extends Controller
      */
     public function create()
     {
-        return view('areas.create');
+      return view('areas.create');
     }
-
+         
     /**
      * Store a newly created resource in storage.
      *
@@ -51,14 +51,14 @@ class AreaController extends Controller
     public function store(Request $request)
     {
       $request->validate([
-        'area'=> 'required',
-        'descripcion' => 'required' 
+        'area'=>'required',
+        'descripcion'=>'required' 
       ]);
-      $areas = new Area([
+      $area = new Area([
         'nom_area'=> $request->get('area'),
         'descripcion_area'=> $request->get('descripcion')
-      ]);
-      $areas->save();
+        ]);
+      $area->save();
       return redirect('/areas')->with('success', 'Se ha guardado una nueva área');
     }
 
@@ -70,22 +70,22 @@ class AreaController extends Controller
      */
     public function show($id)
     {
-        //
+      //
     }
-
-    /**
+      /**
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+
     public function edit($id)
     {
-        $area = Area::find($id);
+      $area = Area::find($id);
 
-        return view('areas.edit', compact('area'));
+      return view('areas.edit', compact('area'));
+
     }
-
     /**
      * Update the specified resource in storage.
      *
@@ -93,17 +93,18 @@ class AreaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+    
     public function update(Request $request, $id)
     {
       $request->validate([
-        'area'=> 'required',
-        'descripcion' => 'required'
+        'nom_area'=> 'required',
+        'descripcion_area' => 'required'
       ]);
 
-      $areas = Area::find($id);
-      $areas->nom_area = $request->get('area');
-      $areas->descripcion_area = $request->get('descripcion');
-      $areas->save();
+      $area = Area::find($id);
+      $area->nom_area = $request->get('nom_area');
+      $area->descripcion_area = $request->get('descripcion_area');
+      $area->save();
 
       return redirect('/areas')->with('success', 'Área modificada');
     }

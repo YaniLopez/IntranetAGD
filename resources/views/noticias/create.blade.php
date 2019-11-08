@@ -59,6 +59,7 @@
           </div>
 
           <button type="submit" class="btn btn-primary">Guardar</button>
+          <a href="http://localhost/IntranetAGD/public/noticias" class="btn btn-default">Cancel</a>
       </form>
   </div>
 </div>

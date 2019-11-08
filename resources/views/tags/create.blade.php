@@ -27,6 +27,7 @@
               <input type="text" class="form-control" name="tags"/>
     </div>
     <button type="submit" class="btn btn-primary">Guardar</button>
+    <a href="http://localhost/IntranetAGD/public/tags" class="btn btn-default">Cancel</a>
       </form>
   </div>
 </div>

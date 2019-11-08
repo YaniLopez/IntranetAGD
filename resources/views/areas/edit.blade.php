@@ -18,18 +18,18 @@
               <li>{{ $error }}</li>
             @endforeach
         </ul>
-      </div><br />
+      </div>
     @endif
-        <form method="post" action="{{ route('areas.update', $area->id_area) }}">
+        <form method="post" action="{{ route('areas.update', $area->id_area)}}">
         @method('PATCH')
         @csrf
         <div class="form-group">
           <label for="price">Área:</label>
-          <input type="text" class="form-control" name="area" value={{ $area->nom_area }} />
+          <input type="text" class="form-control" name="area" value="{{ $area->nom_area}}"/>
         </div>
         <div class="form-group">
           <label for="quantity">Descripción:</label>
-          <input type="text" class="form-control" name="descripcion" value={{ $area->descripcion_area}} />
+          <input type="text" class="form-control" name="descripcion" value="{{ $area->descripcion_area}}"/>
         </div>
         <button type="submit" class="btn btn-primary">Modificar</button>
       </form>

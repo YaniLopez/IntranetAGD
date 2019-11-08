@@ -18,14 +18,20 @@
               <li>{{ $error }}</li>
             @endforeach
         </ul>
-      </div><br />
+      </div>
     @endif
       <form method="post" action="{{ route('areas.store') }}">
       {{ csrf_field() }}
       <div class="form-group">
-              <label for="price">Areas:</label>
+              <label for="price">Area:</label>
               <input type="text" class="form-control" name="area"/>
           </div>
+
+          <div class="form-group">
+              <label for="price">Descripción:</label>
+              <input type="text" class="form-control" name="descripcion"/>
+          </div>
+
           <button type="submit" class="btn btn-primary">Guardar</button>
       </form>
   </div>
